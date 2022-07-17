@@ -1,17 +1,22 @@
 import React from 'react';
-import {ChakraProvider, Container, Text} from '@chakra-ui/react';
-import './App.css';
+import {ChakraProvider, Container, Grid} from '@chakra-ui/react';
+import {Header} from './components/Header';
+import {Form} from './components/Form';
+import {TermsList} from './components/TermsList';
+import {RepoProvider} from './context/Repo/RepoProvider';
 
 function App() {
   return (
     <ChakraProvider>
-      <header className='app-header'>
-        <Container maxW="unset">
-          <Text fontSize="20px" color="white">
-            Effect learn
-          </Text>
+      <RepoProvider>
+        <Header/>
+        <Container pt='50px' pb='50px'>
+          <Grid gap={10}>
+            <Form/>
+            <TermsList />
+          </Grid>
         </Container>
-      </header>
+      </RepoProvider>
     </ChakraProvider>
   );
 }
