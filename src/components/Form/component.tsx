@@ -5,11 +5,11 @@ import {RepoContext} from '../../context/Repo/RepoContext';
 interface Properties {
   initialTerm?: string;
   initialDefinition?: string;
-  index?: number;
+  id?: string;
   onEdited?: () => void;
 }
 
-export default function Component({initialTerm = '', initialDefinition = '', index, onEdited}: Properties) {
+export default function Component({initialTerm = '', initialDefinition = '', id, onEdited}: Properties) {
   const [term, setTerm] = useState(initialTerm);
   const [definition, setDefinition] = useState(initialDefinition);
 
@@ -28,7 +28,8 @@ export default function Component({initialTerm = '', initialDefinition = '', ind
     const trimmedTerm = term.trim();
     const trimmedDefinition = definition.trim();
     if (trimmedTerm !== '' && trimmedDefinition !== '') {
-      addTermToList({
+      void addTermToList({
+        id: Date.now().toString(),
         term: trimmedTerm,
         definition: trimmedDefinition
       });
@@ -39,17 +40,17 @@ export default function Component({initialTerm = '', initialDefinition = '', ind
   function editTerm(): void {
     const trimmedTerm = term.trim();
     const trimmedDefinition = definition.trim();
-    if (trimmedTerm !== '' && trimmedDefinition !== '' && index !== undefined) {
-      editTermInList({
+    if (trimmedTerm !== '' && trimmedDefinition !== '' && id !== undefined) {
+      void editTermInList({
         term: trimmedTerm,
         definition: trimmedDefinition
-      }, index);
+      }, id);
       onEdited && onEdited();
     }
   }
 
   function isEditMode() {
-    return index !== undefined;
+    return id !== undefined;
   }
 
   function clearForm(): void {

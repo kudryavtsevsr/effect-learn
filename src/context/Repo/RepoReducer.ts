@@ -2,15 +2,24 @@ import {RepoAction} from '../actions';
 import {TermItem} from '../../repository/fixtures/terms-list-mock';
 
 export interface RepoState {
-  termsList: TermItem[]
+  termsList: TermItem[],
+  isLoading: boolean
+}
+
+interface editTermInListParams {
+  term: Record<string, unknown>,
+  id: string
 }
 
 const handlers: Record<string, unknown> = {
-  [RepoAction.getTermsList]: (state: unknown, {currentTermsList}: Record<string, unknown>): unknown => ({termsList: currentTermsList}),
-  [RepoAction.addTermToList]: (state: RepoState, {term}: Record<string, unknown>): unknown => ({termsList: [term, ...state.termsList]}),
-  [RepoAction.editTermInList]: (state: RepoState, {term, index}: Record<string, unknown>): unknown => ({
-    termsList: state.termsList.map((item, itemIndex) => itemIndex === index ? term : item)
+  [RepoAction.getTermsList]: (state: RepoState, {currentTermsList}: Record<string, unknown>): unknown => ({...state, termsList: currentTermsList}),
+  [RepoAction.addTermToList]: (state: RepoState, {term}: Record<string, unknown>): unknown => ({...state, termsList: [term, ...state.termsList]}),
+  [RepoAction.editTermInList]: (state: RepoState, {term, id}: editTermInListParams): unknown => ({
+    ...state,
+    termsList: state.termsList.map((item) => item.id === id ? {...item, ...term} : item)
   }),
+  [RepoAction.showLoader]: (state: RepoState) => ({...state, isLoading: true}),
+  [RepoAction.hideLoader]: (state: RepoState) => ({...state, isLoading: false}),
   DEFAULT: (state: unknown): unknown => state
 }
 

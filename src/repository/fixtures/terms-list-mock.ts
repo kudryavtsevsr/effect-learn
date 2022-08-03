@@ -1,10 +1,12 @@
 export interface TermItem {
   term: string,
-  definition: string
+  definition: string,
+  id: string
 }
 
 export const termsList: TermItem[] = [
   {
+    id: '1',
     term: 'accommodation',
     definition: `a place to live, work or stay in
     <br/><br/>
@@ -14,6 +16,7 @@ export const termsList: TermItem[] = [
     for you.`
   },
   {
+    id: '2',
     term: 'beyond',
     definition: `on or to the further side of something
     <br/><br/>

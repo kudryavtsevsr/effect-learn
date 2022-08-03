@@ -4,6 +4,7 @@ import { RepoContext } from './RepoContext';
 import {repoReducer} from './RepoReducer';
 import {RepoAction} from '../actions';
 import {TermItem} from '../../repository/fixtures/terms-list-mock';
+import {FirebaseRepo} from '../../repository/firebase-repo';
 
 interface Props {
   children?: ReactNode
@@ -12,17 +13,20 @@ interface Props {
 export interface RepoContextType {
   fetchTermsList: () => Promise<void>,
   addTermToList: (term: TermItem) => Promise<void>,
-  editTermInList: (term: TermItem, index: number) => Promise<void>,
-  termsList: TermItem[]
+  editTermInList: (term: Omit<TermItem, "id">, id: string) => Promise<void>,
+  termsList: TermItem[],
+  showLoader: () => void,
+  hideLoader: () => void,
+  isLoading: boolean
 }
 
-const useFakeRepo = process.env.USE_FAKE_REPO;
+const useFakeRepo = process.env.REACT_APP_USE_FAKE_REPO;
 
 export const RepoProvider = ({children}: Props) => {
   // @ts-ignore
-  const [{termsList}, dispatch] = useReducer(repoReducer, {termsList: []});
+  const [{termsList, isLoading}, dispatch] = useReducer(repoReducer, {termsList: [], isLoading: false});
 
-  const repository = useFakeRepo ? new FakeRepo() : new FakeRepo();
+  const repository = useFakeRepo === 'true' ? new FakeRepo() : new FirebaseRepo();
 
   async function fetchTermsList(): Promise<void> {
     const currentTermsList = await repository.getTermsList();
@@ -31,17 +35,29 @@ export const RepoProvider = ({children}: Props) => {
   }
 
   async function addTermToList(term: TermItem): Promise<void> {
+    await repository.addTermToList(term);
     // @ts-ignore
     dispatch({type: RepoAction.addTermToList, term});
   }
 
-  async function editTermInList(term: TermItem, index: number): Promise<void> {
+  async function editTermInList(term: Omit<TermItem, "id">, id: string): Promise<void> {
+    await repository.editTerm(term, id);
     // @ts-ignore
-    dispatch({type: RepoAction.editTermInList, term, index});
+    dispatch({type: RepoAction.editTermInList, term, id});
+  }
+
+  function showLoader() {
+    // @ts-ignore
+    dispatch({type: RepoAction.showLoader})
+  }
+
+  function hideLoader() {
+    // @ts-ignore
+    dispatch({type: RepoAction.hideLoader})
   }
 
   return (
-    <RepoContext.Provider value={{fetchTermsList, addTermToList, editTermInList, termsList}}>
+    <RepoContext.Provider value={{fetchTermsList, addTermToList, editTermInList, termsList, showLoader, hideLoader, isLoading}}>
       {children}
     </RepoContext.Provider>
   );

@@ -3,12 +3,12 @@ import React, {useState} from 'react';
 import {Form} from '../Form';
 
 interface Properties {
-  term: string;
-  definition: string;
-  index: number;
+  term: string,
+  definition: string,
+  id: string
 }
 
-export default function Component({term, definition, index}: Properties) {
+export default function Component({term, definition, id}: Properties) {
   const [isFormVisible, setIsFormVisible] = useState(false);
 
   function showForm(): void {
@@ -24,7 +24,7 @@ export default function Component({term, definition, index}: Properties) {
       {
         isFormVisible
           ? (
-            <Form initialTerm={term} initialDefinition={definition} index={index} onEdited={hideForm}/>
+            <Form initialTerm={term} initialDefinition={definition} id={id} onEdited={hideForm}/>
           )
           : (
             <Grid templateColumns="repeat(2, 1fr)" gap={6} p={6} bg="gray.100" borderRadius="md" onDoubleClick={showForm} title="Double click for edit">
