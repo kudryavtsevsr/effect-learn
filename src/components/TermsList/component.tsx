@@ -30,7 +30,7 @@ export default function Component() {
 
     return (
       termsList.map((item: TermItem, index: number) => (
-        <TermsItem term={item.term} definition={item.definition} id={item.id} key={index}/>
+        <TermsItem term={item.term} definition={item.definition} id={item.id} key={item.id}/>
       ))
     );
   }

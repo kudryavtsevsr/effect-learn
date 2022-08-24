@@ -1,5 +1,5 @@
 import {Grid} from '@chakra-ui/react';
-import React, {useState} from 'react';
+import React, {useState, memo} from 'react';
 import {Form} from '../Form';
 
 interface Properties {
@@ -8,7 +8,9 @@ interface Properties {
   id: string
 }
 
-export default function Component({term, definition, id}: Properties) {
+export default memo(function Component({term, definition, id}: Properties) {
+  console.log('termsItem', term);
+
   const [isFormVisible, setIsFormVisible] = useState(false);
 
   function showForm(): void {
@@ -37,4 +39,8 @@ export default function Component({term, definition, id}: Properties) {
       }
     </>
   );
-}
+}, (prevProps, nextProps) => {
+  return prevProps.term === nextProps.term
+    || prevProps.definition === nextProps.definition
+    || prevProps.id === nextProps.id;
+});
