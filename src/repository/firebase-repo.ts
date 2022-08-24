@@ -1,5 +1,5 @@
 import {Repo} from './repo';
-import {TermItem, termsList} from './fixtures/terms-list-mock';
+import {TermItem} from './fixtures/terms-list-mock';
 import axios from 'axios';
 
 const baseUrl = process.env.REACT_APP_FIREBASE_URL;
