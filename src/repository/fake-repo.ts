@@ -15,4 +15,8 @@ export class FakeRepo implements Repo {
   editTerm(term: Omit<TermItem, "id">, id: string): Promise<TermItem[]> {
     return new Promise(resolve => setTimeout(() => resolve(termsList), fakeRepoDelay));
   }
+
+  removeTerm(id: string): Promise<TermItem[]> {
+    return new Promise(resolve => setTimeout(() => resolve(termsList), fakeRepoDelay));
+  }
 }

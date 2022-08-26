@@ -40,7 +40,17 @@ export class FirebaseRepo implements Repo {
       console.log('editTerm', data);
       return data as TermItem[];
     } catch (e) {
-      throw new Error(`addTermToList error: ${e}`);
+      throw new Error(`editTerm error: ${e}`);
+    }
+  }
+
+  async removeTerm(id: string): Promise<TermItem[]> {
+    try {
+      const { data } = await axios.delete(`${baseUrl}/terms/${id}.json`);
+      console.log('removeTerm', data);
+      return data as TermItem[];
+    } catch (e) {
+      throw new Error(`removeTerm error: ${e}`);
     }
   }
 }

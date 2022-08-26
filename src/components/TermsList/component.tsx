@@ -5,7 +5,7 @@ import {TermItem} from '../../repository/fixtures/terms-list-mock';
 import {TermsItem} from '../TermsItem';
 
 export default function Component() {
-  const {fetchTermsList, showLoader, hideLoader, termsList, isLoading} = useContext(RepoContext);
+  const {fetchTermsList, removeTermFromList, showLoader, hideLoader, termsList, isLoading} = useContext(RepoContext);
 
   console.log('termsList', termsList);
 
@@ -21,6 +21,10 @@ export default function Component() {
     });
   }, []);
 
+  function removeTerm(id: string): void {
+    void removeTermFromList(id)
+  }
+
   function getTemplate(): JSX.Element[] | ReactElement {
     if (termsList.length === 0) {
       return (
@@ -30,7 +34,7 @@ export default function Component() {
 
     return (
       termsList.map((item: TermItem, index: number) => (
-        <TermsItem term={item.term} definition={item.definition} id={item.id} key={item.id}/>
+        <TermsItem term={item.term} definition={item.definition} id={item.id} key={item.id} removeTerm={removeTerm}/>
       ))
     );
   }

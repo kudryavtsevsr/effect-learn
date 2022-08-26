@@ -14,6 +14,7 @@ export interface RepoContextType {
   fetchTermsList: () => Promise<void>,
   addTermToList: (term: TermItem) => Promise<void>,
   editTermInList: (term: Omit<TermItem, "id">, id: string) => Promise<void>,
+  removeTermFromList: (id: string) => Promise<void>,
   termsList: TermItem[],
   showLoader: () => void,
   hideLoader: () => void,
@@ -46,6 +47,12 @@ export const RepoProvider = ({children}: Props) => {
     dispatch({type: RepoAction.editTermInList, term, id});
   }
 
+  async function removeTermFromList(id: string): Promise<void> {
+    await repository.removeTerm(id);
+    // @ts-ignore
+    dispatch({type: RepoAction.removeTermFromList, id});
+  }
+
   function showLoader() {
     // @ts-ignore
     dispatch({type: RepoAction.showLoader})
@@ -57,7 +64,16 @@ export const RepoProvider = ({children}: Props) => {
   }
 
   return (
-    <RepoContext.Provider value={{fetchTermsList, addTermToList, editTermInList, termsList, showLoader, hideLoader, isLoading}}>
+    <RepoContext.Provider value={{
+      fetchTermsList,
+      addTermToList,
+      editTermInList,
+      removeTermFromList,
+      termsList,
+      showLoader,
+      hideLoader,
+      isLoading
+    }}>
       {children}
     </RepoContext.Provider>
   );
