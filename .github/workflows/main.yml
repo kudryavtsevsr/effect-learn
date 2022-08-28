@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Build app
-        run: npm run build
+        run: CI=false npm run build
       - name: Tar
         # github-pages artifact has to contain artifact.tar archive with app files in root
         run: cd build && tar -h -cvf ../artifact.tar --exclude=.git ./ && cd ..
