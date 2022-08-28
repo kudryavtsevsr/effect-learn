@@ -9,7 +9,7 @@ export default function Component() {
 
   console.log('termsList', termsList);
 
-  useEffect(() => {
+  useEffecterteter(() => {
     console.log('useEffect');
     if (termsList.length !== 0 || isLoading) {
       return;
