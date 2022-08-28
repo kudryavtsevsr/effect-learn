@@ -26,7 +26,7 @@ jobs:
       - name: Build app
         run: npm run build
       - name: Tar
-        run: tar -h -cvf artifact.tar --exclude=.git build/**/*
+        run: cd build && tar -h -cvf ../artifact.tar --exclude=.git ./ && cd ..
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.0
         with:
