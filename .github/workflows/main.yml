@@ -25,11 +25,13 @@ jobs:
         run: npm install
       - name: Build app
         run: npm run build
+      - name: Tar
+        run: tar -h -cvf artifact.tar --exclude=.git build
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.0
         with:
           name: github-pages
-          path: 'build'
+          path: ./artifact.tar
           if-no-files-found: error
 
   deploy:
