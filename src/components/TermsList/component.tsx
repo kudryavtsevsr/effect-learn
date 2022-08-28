@@ -19,7 +19,6 @@ export default function Component() {
     fetchTermsList().finally(() => {
       hideLoader();
     });
-  // eslint-disable-next-line
   }, []);
 
   function removeTerm(id: string): void {
