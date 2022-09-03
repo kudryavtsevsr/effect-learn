@@ -7,6 +7,7 @@ import {TransitionGroup, CSSTransition, Transition} from 'react-transition-group
 
 export default function Component() {
   const {fetchTermsList, removeTermFromList, showLoader, hideLoader, termsList, isLoading} = useContext(RepoContext);
+  const noTermsRef = createRef() as React.Ref<HTMLDivElement> | undefined;
 
   console.log('termsList', termsList);
 
@@ -29,7 +30,7 @@ export default function Component() {
 
   function getTemplate(): JSX.Element[] | ReactElement {
     const transitionStyles = {
-      entered: {'font-size': 'initial', opacity: 1}
+      entered: {fontSize: 'initial', opacity: 1}
     };
 
     return (
@@ -37,13 +38,18 @@ export default function Component() {
         <Transition
           in={termsList.length === 0}
           timeout={800}
+          nodeRef={noTermsRef}
         >
           {(state) => {
             const transitionStyle = transitionStyles[state as keyof typeof transitionStyles];
             return (
-              <Box textAlign="center"
-                   style={{...{'font-size': 0, opacity: 0, transition: 'opacity 0.2s'}, ...transitionStyle}}>No
-                terms yet</Box>
+              <Box
+                textAlign="center"
+                style={{...{fontSize: 0, opacity: 0, transition: 'opacity 0.2s'}, ...transitionStyle}}
+                ref={noTermsRef}
+              >
+                No terms yet
+              </Box>
             );
           }}
         </Transition>
