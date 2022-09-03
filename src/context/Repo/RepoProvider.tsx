@@ -36,21 +36,21 @@ export const RepoProvider = ({children}: Props) => {
   }
 
   async function addTermToList(term: TermItem): Promise<void> {
-    await repository.addTermToList(term);
     // @ts-ignore
     dispatch({type: RepoAction.addTermToList, term});
+    await repository.addTermToList(term);
   }
 
   async function editTermInList(term: Omit<TermItem, "id">, id: string): Promise<void> {
-    await repository.editTerm(term, id);
     // @ts-ignore
     dispatch({type: RepoAction.editTermInList, term, id});
+    await repository.editTerm(term, id);
   }
 
   async function removeTermFromList(id: string): Promise<void> {
-    await repository.removeTerm(id);
     // @ts-ignore
     dispatch({type: RepoAction.removeTermFromList, id});
+    await repository.removeTerm(id);
   }
 
   function showLoader() {
