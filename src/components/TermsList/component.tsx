@@ -67,8 +67,10 @@ export default function Component() {
                   timeout={800}
                   nodeRef={itemRef}
                 >
-                  <TermsItem term={item.term} definition={item.definition} id={item.id} key={item.id}
-                             removeTerm={removeTerm} ref={itemRef}/>
+                  <div ref={itemRef}>
+                    <TermsItem term={item.term} definition={item.definition} id={item.id} key={item.id}
+                               removeTerm={removeTerm}/>
+                  </div>
                 </CSSTransition>
               );
             })
@@ -79,12 +81,10 @@ export default function Component() {
   }
 
   return (
-    <Box
-      textAlign="center"
-    >
+    <Box>
       {
         isLoading
-          ? <Spinner m="auto"/>
+          ? <Spinner display="block" m="auto"/>
           : getTemplate()
       }
     </Box>

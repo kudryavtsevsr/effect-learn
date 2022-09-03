@@ -1,6 +1,6 @@
 import {Grid, Box, IconButton} from '@chakra-ui/react';
 import {DeleteIcon} from '@chakra-ui/icons';
-import React, {useState, memo, forwardRef, LegacyRef} from 'react';
+import React, {useState, memo} from 'react';
 import {Form} from '../Form';
 
 interface Properties {
@@ -10,8 +10,7 @@ interface Properties {
   removeTerm: (id: string) => void
 }
 
-export default memo(forwardRef(function Component(props: Properties, ref: LegacyRef<HTMLDivElement>) {
-  const {term, definition, id, removeTerm} = props;
+export default memo(function Component({term, definition, id, removeTerm}: Properties) {
   console.log('termsItem', term);
 
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -29,7 +28,7 @@ export default memo(forwardRef(function Component(props: Properties, ref: Legacy
   }
 
   return (
-    <Box pos="relative" ref={ref}>
+    <Box pos="relative">
       <IconButton pos="absolute" opacity="0.1" top="0" right="0" aria-label="Remove" icon={<DeleteIcon/>}
                   onClick={removeCurrentTerm}/>
       {
@@ -49,7 +48,7 @@ export default memo(forwardRef(function Component(props: Properties, ref: Legacy
       }
     </Box>
   );
-}), (prevProps, nextProps) => {
+}, (prevProps, nextProps) => {
   return prevProps.term === nextProps.term
     || prevProps.definition === nextProps.definition
     || prevProps.id === nextProps.id;
