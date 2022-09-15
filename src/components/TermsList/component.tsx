@@ -81,7 +81,7 @@ export default function Component() {
   }
 
   return (
-    <Box>
+    <Box data-testid="terms-list">
       {
         isLoading
           ? <Spinner display="block" m="auto"/>

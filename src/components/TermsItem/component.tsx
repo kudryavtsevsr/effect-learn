@@ -3,14 +3,14 @@ import {DeleteIcon, EditIcon} from '@chakra-ui/icons';
 import React, {useState, memo} from 'react';
 import {Form} from '../Form';
 
-interface Properties {
+export interface TermsItemProperties {
   term: string,
   definition: string,
   id: string,
   removeTerm: (id: string) => void
 }
 
-export default memo(function Component({term, definition, id, removeTerm}: Properties) {
+export default memo(function Component({term, definition, id, removeTerm}: TermsItemProperties) {
   console.log('termsItem', term);
 
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -28,7 +28,7 @@ export default memo(function Component({term, definition, id, removeTerm}: Prope
   }
 
   return (
-    <Box pos="relative">
+    <Box pos="relative" data-testid="terms-item">
       {
         isFormVisible
           ? (
@@ -42,10 +42,10 @@ export default memo(function Component({term, definition, id, removeTerm}: Prope
                           onClick={removeCurrentTerm}/>
               <Grid templateColumns="repeat(2, 1fr)" gap={6} p={6} bg="gray.100" borderRadius="md"
                     onDoubleClick={showForm} title="Double click for edit">
-                <div>
+                <div data-testid="terms-item-term">
                   {term}
                 </div>
-                <div dangerouslySetInnerHTML={{__html: definition}}/>
+                <div dangerouslySetInnerHTML={{__html: definition}} data-testid="terms-item-definition"/>
               </Grid>
             </>
           )
