@@ -2,6 +2,7 @@ import {Grid, Box, IconButton} from '@chakra-ui/react';
 import {DeleteIcon, EditIcon} from '@chakra-ui/icons';
 import React, {useState, memo} from 'react';
 import {Form} from '../Form';
+import {useTestRerender} from '../../custom-hooks/test-rerender-hook';
 
 export interface TermsItemProperties {
   term: string,
@@ -14,6 +15,8 @@ export default memo(function Component({term, definition, id, removeTerm}: Terms
   console.log('termsItem', term);
 
   const [isFormVisible, setIsFormVisible] = useState(false);
+
+  const testRerenderAttribute = useTestRerender();
 
   function showForm(): void {
     setIsFormVisible(true);
@@ -28,7 +31,7 @@ export default memo(function Component({term, definition, id, removeTerm}: Terms
   }
 
   return (
-    <Box pos="relative" data-testid="terms-item">
+    <Box pos="relative" data-testid="terms-item" {...testRerenderAttribute.bind}>
       {
         isFormVisible
           ? (

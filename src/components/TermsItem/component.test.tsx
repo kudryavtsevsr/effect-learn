@@ -5,25 +5,52 @@ import {termsList} from '../../repository/fixtures/terms-list-mock';
 import {TermsItemProperties} from './component';
 import {TermsItem} from './index';
 import React from 'react';
+import {TEST_RERENDER_ATTRIBUTE_NAME} from '../../custom-hooks/test-rerender-hook';
 
-const testTerm = termsList[0];
+const testTerm1 = termsList[0];
+const testTerm2 = termsList[1];
 const removeTerm = () => {
 };
-const testProps: TermsItemProperties = {
-  ...testTerm,
+const testProps1: TermsItemProperties = {
+  ...testTerm1,
+  removeTerm
+};
+const testProps2: TermsItemProperties = {
+  ...testTerm2,
+  id: testTerm1.id,
   removeTerm
 };
 
 describe('TermsItem', () => {
   it('renders component', () => {
-    const {page} = create(testProps);
+    const {page} = create(testProps1);
     expect(page.termsItem).toBeVisible();
   });
 
   it('displays props data correctly', () => {
-    const {page} = create(testProps);
-    expect(page.termsItemTerm).toContainHTML(testTerm.term);
-    expect(page.termsItemDefinition).toContainHTML(testTerm.definition);
+    const {page} = create(testProps1);
+    expect(page.termsItemTerm).toContainHTML(testTerm1.term);
+    expect(page.termsItemDefinition).toContainHTML(testTerm1.definition);
+  });
+
+  it('is updated when props data changed', () => {
+    const {page, rerenderComponent} = create(testProps1);
+    expect(page.termsItemTerm).toContainHTML(testTerm1.term);
+    expect(page.termsItemDefinition).toContainHTML(testTerm1.definition);
+    rerenderComponent(testProps2);
+    expect(page.termsItemTerm).toContainHTML(testTerm2.term);
+    expect(page.termsItemDefinition).toContainHTML(testTerm2.definition);
+    expect(page.termsItem).toHaveAttribute(TEST_RERENDER_ATTRIBUTE_NAME, '1')
+  });
+
+  it('isn\'t re rendered when props data changed if they\'re the same', () => {
+    const { page, rerenderComponent}  = create(testProps1);
+    expect(page.termsItemTerm).toContainHTML(testTerm1.term);
+    expect(page.termsItemDefinition).toContainHTML(testTerm1.definition);
+    rerenderComponent(testProps1);
+    expect(page.termsItemTerm).toContainHTML(testTerm1.term);
+    expect(page.termsItemDefinition).toContainHTML(testTerm1.definition);
+    expect(page.termsItem).toHaveAttribute(TEST_RERENDER_ATTRIBUTE_NAME, '0')
   });
 });
 
