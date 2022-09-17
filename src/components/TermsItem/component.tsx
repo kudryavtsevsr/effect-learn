@@ -1,6 +1,6 @@
 import {Grid, Box, IconButton} from '@chakra-ui/react';
 import {DeleteIcon, EditIcon} from '@chakra-ui/icons';
-import React, {useState, memo} from 'react';
+import React, {useState} from 'react';
 import {Form} from '../Form';
 import {useTestRerender} from '../../custom-hooks/test-rerender-hook';
 
@@ -11,7 +11,7 @@ export interface TermsItemProperties {
   removeTerm: (id: string) => void
 }
 
-export default memo(function Component({term, definition, id, removeTerm}: TermsItemProperties) {
+export default function Component({term, definition, id, removeTerm}: TermsItemProperties) {
   console.log('termsItem', term);
 
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -55,8 +55,4 @@ export default memo(function Component({term, definition, id, removeTerm}: Terms
       }
     </Box>
   );
-}, (prevProps, nextProps) => {
-  return prevProps.term === nextProps.term
-    || prevProps.definition === nextProps.definition
-    || prevProps.id === nextProps.id;
-});
+};
