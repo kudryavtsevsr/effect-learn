@@ -57,6 +57,6 @@ export default memo(function Component({term, definition, id, removeTerm}: Terms
   );
 }, (prevProps, nextProps) => {
   return prevProps.term === nextProps.term
-    && prevProps.definition === nextProps.definition
-    && prevProps.id === nextProps.id;
+    || prevProps.definition === nextProps.definition
+    || prevProps.id === nextProps.id;
 });
