@@ -2,7 +2,7 @@ name: Deploy react app to Pages
 
 on:
   push:
-    branches: ["master"]
+    branches: [ "ci-jest-test" ]
 
   workflow_dispatch:
 
@@ -14,6 +14,12 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Unit tests
+        run: npm run test
+
   build:
     runs-on: ubuntu-latest
     steps:
