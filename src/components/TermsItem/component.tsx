@@ -3,6 +3,8 @@ import {DeleteIcon, EditIcon} from '@chakra-ui/icons';
 import React, {useState, memo} from 'react';
 import {Form} from '../Form';
 import {useTestRerender} from '../../custom-hooks/test-rerender-hook';
+import ReactMarkdown from 'react-markdown';
+import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
 
 export interface TermsItemProperties {
   term: string,
@@ -48,7 +50,9 @@ export default memo(function Component({term, definition, id, removeTerm}: Terms
                 <div data-testid="terms-item-term">
                   {term}
                 </div>
-                <div dangerouslySetInnerHTML={{__html: definition}} data-testid="terms-item-definition"/>
+                <div data-testid="terms-item-definition">
+                  <ReactMarkdown components={ChakraUIRenderer()} children={definition} skipHtml/>
+                </div>
               </Grid>
             </>
           )
