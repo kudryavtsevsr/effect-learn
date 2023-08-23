@@ -28,5 +28,25 @@ for you.`
 **more than something**
 
 - She's got nothing ______ her state pension.`
+  },
+  {
+    id: '3',
+    term: 'investigate',
+    definition: `to carefully examine the facts of a situation, an event, a crime, etc. to find out the truth about it or how it happened
+
+The FBI has been called in to ________.
+
+'What was that noise?' 'I'll go and ________.'`
+  },
+  {
+    id: '4',
+    term: 'narrow',
+    definition: `measuring a short distance from one side to the other, especially in relation to length
+
+a ______ bed/doorway/shelf.
+
+______ shoulders/hips
+
+There was only a ______ gap between the bed and the wall.`
   }
 ];

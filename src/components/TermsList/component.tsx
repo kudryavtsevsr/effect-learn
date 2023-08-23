@@ -1,26 +1,17 @@
 import React, {createRef, ReactElement, useContext, useEffect} from 'react';
-import {Box, Grid, Spinner} from '@chakra-ui/react';
+import {Box, Grid} from '@chakra-ui/react';
 import {RepoContext} from '../../context/Repo/RepoContext';
 import {TermItem} from '../../repository/fixtures/terms-list-mock';
 import {TermsItem} from '../TermsItem';
 import {TransitionGroup, CSSTransition, Transition} from 'react-transition-group';
 
 export default function Component() {
-  const {fetchTermsList, removeTermFromList, showLoader, hideLoader, termsList, isLoading} = useContext(RepoContext);
+  const {fetchTermsListWithPageLoaderDisplay, removeTermFromList, termsList, showTemplateWhenTermsReadyToDisplay} = useContext(RepoContext);
   const noTermsRef = createRef() as React.Ref<HTMLDivElement> | undefined;
 
-  console.log('termsList', termsList);
-
   useEffect(() => {
-    console.log('useEffect');
-    if (termsList.length !== 0 || isLoading) {
-      return;
-    }
-
-    showLoader();
-    fetchTermsList().finally(() => {
-      hideLoader();
-    });
+    console.log('TermsList useEffect');
+    void fetchTermsListWithPageLoaderDisplay();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -83,9 +74,7 @@ export default function Component() {
   return (
     <Box data-testid="terms-list">
       {
-        isLoading
-          ? <Spinner display="block" m="auto"/>
-          : getTemplate()
+        showTemplateWhenTermsReadyToDisplay(getTemplate())
       }
     </Box>
   );
