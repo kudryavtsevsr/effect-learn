@@ -33,7 +33,7 @@ export interface RepoState {
 
 type RepoHandle = (state: RepoState, payload?: any) => RepoState;
 
-type RepoHandlers = { [P in RepoActionKindValues | 'DEFAULT']: RepoHandle } & { [DEFAULT_KEY]: RepoHandle };
+type RepoHandlers = { [P in RepoActionKindValues]: RepoHandle } & { [DEFAULT_KEY]: RepoHandle };
 
 export interface ReducerAction {
   type: RepoActionKindValues,
