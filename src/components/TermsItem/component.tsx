@@ -14,7 +14,6 @@ export interface TermsItemProperties {
 }
 
 export default memo(function Component({term, definition, id, removeTerm}: TermsItemProperties) {
-  console.log('termsItem', term);
 
   const [isFormVisible, setIsFormVisible] = useState(false);
 

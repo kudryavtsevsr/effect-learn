@@ -36,7 +36,6 @@ export const RepoProvider = ({children}: Props) => {
   const repository = useFakeRepo === 'true' ? new FakeRepo() : new FirebaseRepo();
 
   async function fetchTermsList(): Promise<void> {
-    console.log('fetchTermsList');
     const currentTermsList = await repository.getTermsList();
     dispatch({type: repoActionKind.getTermsList, payload: {currentTermsList}});
   }

@@ -10,7 +10,6 @@ export default function Component() {
   const noTermsRef = createRef() as React.Ref<HTMLDivElement> | undefined;
 
   useEffect(() => {
-    console.log('TermsList useEffect');
     void fetchTermsListWithPageLoaderDisplay();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
