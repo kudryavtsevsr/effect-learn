@@ -8,7 +8,6 @@ export class FirebaseRepo implements Repo {
   async getTermsList(): Promise<TermItem[]> {
     try {
       const { data } = await axios.get(`${baseUrl}/terms.json`);
-      console.log('getTermsList', data);
       if (!data) {
         return [];
       }
@@ -27,7 +26,6 @@ export class FirebaseRepo implements Repo {
   async addTermToList(term: TermItem): Promise<TermItem[]> {
     try {
       const { data } = await axios.post(`${baseUrl}/terms.json`,term);
-      console.log('addTermToList', data);
       return data as TermItem[];
     } catch (e) {
       throw new Error(`addTermToList error: ${e}`);
@@ -37,7 +35,6 @@ export class FirebaseRepo implements Repo {
   async editTerm(term: Omit<TermItem, "id">, id: string): Promise<TermItem[]> {
     try {
       const { data } = await axios.patch(`${baseUrl}/terms/${id}.json`,term);
-      console.log('editTerm', data);
       return data as TermItem[];
     } catch (e) {
       throw new Error(`editTerm error: ${e}`);
@@ -47,7 +44,6 @@ export class FirebaseRepo implements Repo {
   async removeTerm(id: string): Promise<TermItem[]> {
     try {
       const { data } = await axios.delete(`${baseUrl}/terms/${id}.json`);
-      console.log('removeTerm', data);
       return data as TermItem[];
     } catch (e) {
       throw new Error(`removeTerm error: ${e}`);

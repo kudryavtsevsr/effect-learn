@@ -7,8 +7,6 @@ import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
 import ReactMarkdown from 'react-markdown';
 import styles from './component.module.scss';
 
-console.log('styles', styles)
-
 const cx = classNames.bind(styles);
 
 export default function Component() {
