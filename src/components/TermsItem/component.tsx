@@ -2,7 +2,7 @@ import {Grid, Box, IconButton} from '@chakra-ui/react';
 import {DeleteIcon, EditIcon} from '@chakra-ui/icons';
 import React, {useState, memo} from 'react';
 import {Form} from '../Form';
-import {useTestRerender} from '../../custom-hooks/test-rerender-hook';
+import {useTestRerender} from 'use-test-rerender';
 import ReactMarkdown from 'react-markdown';
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
 

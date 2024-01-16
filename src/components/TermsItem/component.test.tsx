@@ -5,7 +5,7 @@ import {termsList} from '../../repository/fixtures/terms-list-mock';
 import {TermsItemProperties} from './component';
 import {TermsItem} from './index';
 import React from 'react';
-import {TEST_RERENDER_ATTRIBUTE_NAME} from '../../custom-hooks/test-rerender-hook';
+import {TEST_RERENDER_ATTRIBUTE_NAME} from 'use-test-rerender';
 
 const testTerm1 = termsList[0];
 const testTerm2 = termsList[1];

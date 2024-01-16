@@ -9931,6 +9931,11 @@ use-sidecar@^1.1.2:
     detect-node-es "^1.1.0"
     tslib "^2.0.0"
 
+use-test-rerender@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/use-test-rerender/-/use-test-rerender-0.1.1.tgz#f8af108451980ca210bf09dc662f539657134d53"
+  integrity sha512-HTZXhGK09b0zU5yRjJKBtPbAILe1gyQhfepB+hFgbB2SR8voLsqHIsR3I1oUqc8rAqiY7nY9kA3kNsZrKIE9pw==
+
 util-deprecate@^1.0.1, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
