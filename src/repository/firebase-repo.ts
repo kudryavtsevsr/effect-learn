@@ -4,17 +4,24 @@ import axios from 'axios';
 
 const baseUrl = process.env.REACT_APP_FIREBASE_URL;
 
+export type FirebaseTermsRawResponse = {
+  [key: string]: {
+    id: string,
+    term: string,
+    definition: string
+  }
+}
+
 export class FirebaseRepo implements Repo {
   async getTermsList(): Promise<TermItem[]> {
     try {
-      const { data } = await axios.get(`${baseUrl}/terms.json`);
+      const { data } = await axios.get<FirebaseTermsRawResponse>(`${baseUrl}/terms.json`);
       if (!data) {
         return [];
       }
       const payload = Object.keys(data).map(key => {
         return {
-          ...data[key],
-          id: key
+          ...data[key]
         }
       }).reverse();
       return payload as TermItem[];
