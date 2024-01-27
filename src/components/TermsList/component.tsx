@@ -1,18 +1,15 @@
-import React, {createRef, ReactElement, useContext, useEffect} from 'react';
-import {Box, Grid} from '@chakra-ui/react';
+import React, {createRef, ReactElement, useContext} from 'react';
+import {Box, Grid, Spinner} from '@chakra-ui/react';
 import {RepoContext} from '../../context/Repo/RepoContext';
 import {TermItem} from '../../repository/fixtures/terms-list-mock';
 import {TermsItem} from '../TermsItem';
 import {TransitionGroup, CSSTransition, Transition} from 'react-transition-group';
+import {termsAPI} from '../../services/api/termsAPI';
 
 export default function Component() {
-  const {fetchTermsListWithPageLoaderDisplay, removeTermFromList, termsList, showTemplateWhenTermsReadyToDisplay} = useContext(RepoContext);
+  const {removeTermFromList} = useContext(RepoContext);
+  const {data: termsList, isLoading} = termsAPI.useFetchTermsQuery();
   const noTermsRef = createRef() as React.Ref<HTMLDivElement> | undefined;
-
-  useEffect(() => {
-    void fetchTermsListWithPageLoaderDisplay();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   function removeTerm(id: string): void {
     void removeTermFromList(id);
@@ -23,10 +20,10 @@ export default function Component() {
       entered: {fontSize: 'initial', opacity: 1}
     };
 
-    return (
-      <>
+    if (!termsList || termsList.length === 0) {
+      return (
         <Transition
-          in={termsList.length === 0}
+          in={true}
           timeout={800}
           nodeRef={noTermsRef}
         >
@@ -43,37 +40,40 @@ export default function Component() {
             );
           }}
         </Transition>
-        <TransitionGroup
-          component={Grid}
-          gap={6}
-        >
-          {
-            termsList.map((item: TermItem) => {
-              const itemRef = createRef() as React.Ref<HTMLDivElement> | undefined;
-              return (
-                <CSSTransition
-                  key={item.id}
-                  classNames={'term'}
-                  timeout={800}
-                  nodeRef={itemRef}
-                >
-                  <div ref={itemRef}>
-                    <TermsItem term={item.term} definition={item.definition} id={item.id} key={item.id}
-                               removeTerm={removeTerm}/>
-                  </div>
-                </CSSTransition>
-              );
-            })
-          }
-        </TransitionGroup>
-      </>
+      );
+    }
+
+    return (
+      <TransitionGroup
+        component={Grid}
+        gap={6}
+      >
+        {
+          termsList.map((item: TermItem) => {
+            const itemRef = createRef() as React.Ref<HTMLDivElement> | undefined;
+            return (
+              <CSSTransition
+                key={item.id}
+                classNames={'term'}
+                timeout={800}
+                nodeRef={itemRef}
+              >
+                <div ref={itemRef}>
+                  <TermsItem term={item.term} definition={item.definition} id={item.id} key={item.id}
+                             removeTerm={removeTerm}/>
+                </div>
+              </CSSTransition>
+            );
+          })
+        }
+      </TransitionGroup>
     );
   }
 
   return (
     <Box data-testid="terms-list">
       {
-        showTemplateWhenTermsReadyToDisplay(getTemplate())
+        isLoading ? <Spinner display="block" m="auto"/> : getTemplate()
       }
     </Box>
   );
