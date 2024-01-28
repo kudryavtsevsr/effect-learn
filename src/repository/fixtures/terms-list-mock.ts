@@ -1,10 +1,10 @@
-export interface TermItem {
+export interface MockTermRawResponse {
   term: string,
   definition: string,
   id: string
 }
 
-export const termsList: TermItem[] = [
+export const termsList: MockTermRawResponse[] = [
   {
     id: '1',
     term: 'accommodation',

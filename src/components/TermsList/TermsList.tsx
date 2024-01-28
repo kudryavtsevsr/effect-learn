@@ -1,18 +1,17 @@
-import React, {createRef, ReactElement, useContext} from 'react';
+import React, {createRef, ReactElement} from 'react';
 import {Box, Grid, Spinner} from '@chakra-ui/react';
-import {RepoContext} from '../../context/Repo/RepoContext';
-import {TermItem} from '../../repository/fixtures/terms-list-mock';
+import {TermItem} from '../../models/Term';
 import {TermsItem} from '../TermsItem';
 import {TransitionGroup, CSSTransition, Transition} from 'react-transition-group';
 import {termsAPI} from '../../services/api/termsAPI';
 
-export default function Component() {
-  const {removeTermFromList} = useContext(RepoContext);
+export default function TermsList() {
+  const [requestTermDeleting] = termsAPI.useDeleteTermsMutation();
   const {data: termsList, isLoading} = termsAPI.useFetchTermsQuery();
   const noTermsRef = createRef() as React.Ref<HTMLDivElement> | undefined;
 
-  function removeTerm(id: string): void {
-    void removeTermFromList(id);
+  function removeTerm(termItem: TermItem): void {
+    void requestTermDeleting(termItem);
   }
 
   function getTemplate(): JSX.Element[] | ReactElement {
@@ -59,7 +58,7 @@ export default function Component() {
                 nodeRef={itemRef}
               >
                 <div ref={itemRef}>
-                  <TermsItem term={item.term} definition={item.definition} id={item.id} key={item.id}
+                  <TermsItem {...item} key={item.id}
                              removeTerm={removeTerm}/>
                 </div>
               </CSSTransition>

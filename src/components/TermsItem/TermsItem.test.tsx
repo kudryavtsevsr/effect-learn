@@ -1,11 +1,12 @@
 import {render, screen} from '@testing-library/react';
 import {ChakraProvider} from '@chakra-ui/react';
-import {RepoProvider} from '../../context/Repo/RepoProvider';
 import {termsList} from '../../repository/fixtures/terms-list-mock';
-import {TermsItemProperties} from './component';
+import {TermsItemProperties} from './TermsItem';
 import {TermsItem} from './index';
 import React from 'react';
 import {TEST_RERENDER_ATTRIBUTE_NAME} from 'use-test-rerender';
+import {Provider} from 'react-redux';
+import {setupStore} from '../../store';
 
 const testTerm1 = termsList[0];
 const testTerm2 = termsList[1];
@@ -13,10 +14,12 @@ const removeTerm = () => {
 };
 const testProps1: TermsItemProperties = {
   ...testTerm1,
+  externalId: '',
   removeTerm
 };
 const testProps2: TermsItemProperties = {
   ...testTerm2,
+  externalId: '',
   id: testTerm1.id,
   removeTerm
 };
@@ -55,11 +58,13 @@ describe('TermsItem', () => {
 });
 
 function create(propsData: TermsItemProperties) {
+  const store = setupStore();
+
   const template = (propsData: TermsItemProperties) => (
     <ChakraProvider>
-      <RepoProvider>
+      <Provider store={store}>
         <TermsItem {...propsData}/>
-      </RepoProvider>
+      </Provider>
     </ChakraProvider>
   );
 

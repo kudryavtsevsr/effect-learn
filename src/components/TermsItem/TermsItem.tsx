@@ -5,15 +5,17 @@ import {Form} from '../Form';
 import {useTestRerender} from 'use-test-rerender';
 import ReactMarkdown from 'react-markdown';
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
+import {TermItem} from '../../models/Term';
 
 export interface TermsItemProperties {
   term: string,
   definition: string,
   id: string,
-  removeTerm: (id: string) => void
+  externalId: string,
+  removeTerm: (termItem: TermItem) => void
 }
 
-export default memo(function Component({term, definition, id, removeTerm}: TermsItemProperties) {
+export default memo(function TermsItem({term, definition, id, externalId, removeTerm}: TermsItemProperties) {
 
   const [isFormVisible, setIsFormVisible] = useState(false);
 
@@ -28,7 +30,7 @@ export default memo(function Component({term, definition, id, removeTerm}: Terms
   }
 
   function removeCurrentTerm(): void {
-    void removeTerm(id);
+    void removeTerm({term, definition, id, externalId});
   }
 
   return (
@@ -36,7 +38,7 @@ export default memo(function Component({term, definition, id, removeTerm}: Terms
       {
         isFormVisible
           ? (
-            <Form initialTerm={term} initialDefinition={definition} id={id} onEdited={hideForm}/>
+            <Form initialTerm={term} initialDefinition={definition} id={id} externalId={externalId} onEdited={hideForm}/>
           )
           : (
             <>
