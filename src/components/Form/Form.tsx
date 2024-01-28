@@ -1,19 +1,21 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import {Button, Grid, GridItem, FormControl, FormLabel, Textarea} from '@chakra-ui/react';
-import {RepoContext} from '../../context/Repo/RepoContext';
+import {termsAPI} from '../../services/api/termsAPI';
 
 interface Properties {
   initialTerm?: string;
   initialDefinition?: string;
   id?: string;
+  externalId?: string;
   onEdited?: () => void;
 }
 
-export default function Component({initialTerm = '', initialDefinition = '', id, onEdited}: Properties) {
+export default function Form({initialTerm = '', initialDefinition = '', id, externalId, onEdited}: Properties) {
   const [term, setTerm] = useState(initialTerm);
   const [definition, setDefinition] = useState(initialDefinition);
 
-  const {addTermToList, editTermInList} = useContext(RepoContext);
+  const [requestTermUpdating] = termsAPI.useUpdateTermsMutation();
+  const [requestTermCreating] = termsAPI.useCreateTermsMutation();
 
   function submitHandler(): void {
     if (isEditMode()) {
@@ -28,7 +30,7 @@ export default function Component({initialTerm = '', initialDefinition = '', id,
     const trimmedTerm = term.trim();
     const trimmedDefinition = definition.trim();
     if (trimmedTerm !== '' && trimmedDefinition !== '') {
-      void addTermToList({
+      void requestTermCreating({
         id: Date.now().toString(),
         term: trimmedTerm,
         definition: trimmedDefinition
@@ -40,11 +42,13 @@ export default function Component({initialTerm = '', initialDefinition = '', id,
   function editTerm(): void {
     const trimmedTerm = term.trim();
     const trimmedDefinition = definition.trim();
-    if (trimmedTerm !== '' && trimmedDefinition !== '' && id !== undefined) {
-      void editTermInList({
+    if (trimmedTerm !== '' && trimmedDefinition !== '' && id !== undefined && externalId !== undefined) {
+      void requestTermUpdating({
+        id,
         term: trimmedTerm,
-        definition: trimmedDefinition
-      }, id);
+        definition: trimmedDefinition,
+        externalId
+      });
       onEdited && onEdited();
     }
   }

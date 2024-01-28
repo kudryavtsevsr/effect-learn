@@ -1,7 +1,8 @@
 import {render, screen} from '@testing-library/react';
 import {ChakraProvider} from '@chakra-ui/react';
-import {RepoProvider} from '../../context/Repo/RepoProvider';
 import {TermsList} from './index';
+import {Provider} from 'react-redux';
+import {setupStore} from '../../store';
 
 describe('TermsList', () => {
   it('renders component', () => {
@@ -11,11 +12,13 @@ describe('TermsList', () => {
 });
 
 function create() {
+  const store = setupStore();
+
   render(
     <ChakraProvider>
-      <RepoProvider>
+      <Provider store={store}>
         <TermsList/>
-      </RepoProvider>
+      </Provider>
     </ChakraProvider>
   );
 

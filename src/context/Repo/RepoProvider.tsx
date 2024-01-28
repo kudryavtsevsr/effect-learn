@@ -3,7 +3,7 @@ import {FakeRepo} from '../../repository/fake-repo';
 import {RepoContext} from './RepoContext';
 import {repoReducer} from './RepoReducer';
 import {repoActionKind} from '../action-kinds';
-import {TermItem} from '../../repository/fixtures/terms-list-mock';
+import {TermItem} from '../../models/Term';
 import {FirebaseRepo} from '../../repository/firebase-repo';
 import {Spinner} from '@chakra-ui/react';
 
@@ -15,8 +15,8 @@ export interface RepoContextType {
   fetchTermsList: () => Promise<void>,
   fetchTermsListWithPageLoaderDisplay: () => Promise<void>,
   addTermToList: (term: TermItem) => Promise<void>,
-  editTermInList: (term: Omit<TermItem, 'id'>, id: string) => Promise<void>,
-  removeTermFromList: (id: string) => Promise<void>,
+  editTermInList: (term: TermItem) => Promise<void>,
+  removeTermFromList: (term: TermItem) => Promise<void>,
   getTermsList: () => TermItem[],
   termsList: TermItem[],
   showLoader: () => void,
@@ -56,14 +56,14 @@ export const RepoProvider = ({children}: Props) => {
     await repository.addTermToList(term);
   }
 
-  async function editTermInList(term: Omit<TermItem, 'id'>, id: string): Promise<void> {
-    dispatch({type: repoActionKind.editTermInList, payload: {term, id}});
-    await repository.editTerm(term, id);
+  async function editTermInList(term: TermItem): Promise<void> {
+    dispatch({type: repoActionKind.editTermInList, payload: {term}});
+    await repository.editTerm(term);
   }
 
-  async function removeTermFromList(id: string): Promise<void> {
-    dispatch({type: repoActionKind.removeTermFromList, payload: {id}});
-    await repository.removeTerm(id);
+  async function removeTermFromList(term: TermItem): Promise<void> {
+    dispatch({type: repoActionKind.removeTermFromList, payload: {term}});
+    await repository.removeTerm(term);
   }
 
   function getTermsList(): TermItem[] {

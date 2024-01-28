@@ -3,7 +3,7 @@ import {Text, Box, Flex} from '@chakra-ui/react';
 import {NavLink} from 'react-router-dom';
 import {Path} from '../../router';
 
-export default function Component() {
+export default function Header() {
   return (
     <Box bg='blue.500' p='10px'>
       <Flex

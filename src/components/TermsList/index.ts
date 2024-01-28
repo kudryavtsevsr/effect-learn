@@ -1,1 +1,1 @@
-export {default as TermsList} from './component';
+export {default as TermsList} from './TermsList';

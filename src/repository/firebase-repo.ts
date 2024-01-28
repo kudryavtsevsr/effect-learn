@@ -1,11 +1,13 @@
 import {Repo} from './repo';
-import {TermItem} from './fixtures/terms-list-mock';
+import {TermItem} from '../models/Term';
 import axios from 'axios';
 
 const baseUrl = process.env.REACT_APP_FIREBASE_URL;
 
-export type FirebaseTermsRawResponse = {
-  [key: string]: {
+export type FirebaseKey = string;
+
+export interface FirebaseTermsRawResponse {
+  [key: FirebaseKey]: {
     id: string,
     term: string,
     definition: string
@@ -39,18 +41,18 @@ export class FirebaseRepo implements Repo {
     }
   }
 
-  async editTerm(term: Omit<TermItem, "id">, id: string): Promise<TermItem[]> {
+  async editTerm(term: TermItem): Promise<TermItem[]> {
     try {
-      const { data } = await axios.patch(`${baseUrl}/terms/${id}.json`,term);
+      const { data } = await axios.patch(`${baseUrl}/terms/${term.externalId}.json`,term);
       return data as TermItem[];
     } catch (e) {
       throw new Error(`editTerm error: ${e}`);
     }
   }
 
-  async removeTerm(id: string): Promise<TermItem[]> {
+  async removeTerm(term: TermItem): Promise<TermItem[]> {
     try {
-      const { data } = await axios.delete(`${baseUrl}/terms/${id}.json`);
+      const { data } = await axios.delete(`${baseUrl}/terms/${term.externalId}.json`);
       return data as TermItem[];
     } catch (e) {
       throw new Error(`removeTerm error: ${e}`);

@@ -1,5 +1,5 @@
 import {repoActionKind, RepoActionKindValues} from '../action-kinds';
-import {TermItem} from '../../repository/fixtures/terms-list-mock';
+import {TermItem} from '../../models/Term';
 
 const DEFAULT_KEY = 'DEFAULT';
 
