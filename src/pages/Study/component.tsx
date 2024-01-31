@@ -1,25 +1,20 @@
-import {Box, Container, Flex, Button} from '@chakra-ui/react';
+import {Box, Container, Flex, Button, Spinner} from '@chakra-ui/react';
 import {ArrowBackIcon, ArrowForwardIcon, RepeatIcon} from '@chakra-ui/icons';
-import React, {ReactElement, useContext, useEffect, useState} from 'react';
+import React, {ReactElement, useState} from 'react';
 import classNames from 'classnames/bind';
-import {RepoContext} from '../../context/Repo/RepoContext';
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
 import ReactMarkdown from 'react-markdown';
 import styles from './component.module.scss';
+import {termsAPI} from '../../services/api/termsAPI';
 
 const cx = classNames.bind(styles);
 
 export default function Component() {
-  const {fetchTermsListWithPageLoaderDisplay, termsList, showTemplateWhenTermsReadyToDisplay} = useContext(RepoContext);
+  const {data: termsList, isLoading} = termsAPI.useFetchTermsQuery();
 
   const [currentItemIndex, setCurrentItemIndex] = useState(0);
   const [isInnerTransition, setIsInnerTransition] = useState(true);
   const [isCardFlipped, setIsCardFlipped] = useState(false);
-
-  useEffect(() => {
-    void fetchTermsListWithPageLoaderDisplay();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   function toggleCard() {
     setIsCardFlipped(isCardFlipped => !isCardFlipped);
@@ -51,10 +46,18 @@ export default function Component() {
   }
 
   function isCurrentCardLast() {
+    if (!termsList) {
+      return
+    }
+
     return currentItemIndex === termsList.length - 1;
   }
 
   function getProgressIndicator() {
+    if (!termsList) {
+      return
+    }
+
     return `${currentItemIndex + 1}/${termsList.length}`;
   }
 
@@ -72,7 +75,7 @@ export default function Component() {
                 onClick={toggleCard}
               >
                 <Box pos="absolute" opacity="0.5" top="10px" right="10px">{getProgressIndicator()}</Box>
-                <ReactMarkdown components={ChakraUIRenderer()} children={termsList?.[currentItemIndex]?.definition}
+                <ReactMarkdown components={ChakraUIRenderer()} children={String(termsList?.[currentItemIndex]?.definition)}
                                skipHtml/>
               </Box>
             </Box>
@@ -85,7 +88,7 @@ export default function Component() {
                 onClick={toggleCard}
               >
                 <Box pos="absolute" opacity="0.5" top="10px" right="10px">{getProgressIndicator()}</Box>
-                <ReactMarkdown components={ChakraUIRenderer()} children={termsList?.[currentItemIndex]?.term} skipHtml/>
+                <ReactMarkdown components={ChakraUIRenderer()} children={String(termsList?.[currentItemIndex]?.term)} skipHtml/>
               </Box>
             </Box>
           </Box>
@@ -113,7 +116,7 @@ export default function Component() {
     <Box data-testid="terms-list">
       <Container pt="50px" pb="50px">
         {
-          showTemplateWhenTermsReadyToDisplay(getTemplate())
+          isLoading ? <Spinner display="block" m="auto"/> : getTemplate()
         }
       </Container>
     </Box>
