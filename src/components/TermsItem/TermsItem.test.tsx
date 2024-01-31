@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react';
 import {ChakraProvider} from '@chakra-ui/react';
-import {termsList} from '../../repository/fixtures/terms-list-mock';
+import {termsList} from '../../fixtures/terms-list-mock';
 import {TermsItemProperties} from './TermsItem';
 import {TermsItem} from './index';
 import React from 'react';

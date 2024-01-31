@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import {TermItem} from '../../models/Term';
-import {FirebaseKey, FirebaseTermsRawResponse} from '../../repository/firebase-repo';
+import {FirebaseKey, FirebaseTermsRawResponse} from '../../models/Firebase';
 
 const baseUrl = process.env.REACT_APP_FIREBASE_URL;
 const useFakeRepo = process.env.REACT_APP_USE_FAKE_REPO;
@@ -20,7 +20,7 @@ export const termsAPI = createApi({
       useFakeRepo === 'true'
         ? {
           queryFn: async () => {
-            const data = !!fakeTermsList ? {termsList: fakeTermsList} : await import('../../repository/fixtures/terms-list-mock');
+            const data = !!fakeTermsList ? {termsList: fakeTermsList} : await import('../../fixtures/terms-list-mock');
             fakeTermsList = data.termsList.map(termItem => {
               return {
                 ...termItem,
