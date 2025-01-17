@@ -35,6 +35,44 @@ To set up the project locally, follow these steps:
    
 ---
 
+## 🎯 Roadmap
+
+### Phase 1: Core Features
+1. ✅ Add Terms Functionality
+    1. ✅ Implement a user interface for adding terms and their definitions.
+    2. ✅ Support basic validation for input fields.
+2. ✅ Study Terms in Basic Mode
+    1. ✅ Create a simple study mode where terms are shown in a circular sequence.
+    2. ✅ Include basic navigation (next/previous buttons) for moving between terms.
+3. Local Storage Integration
+    1. Implement functionality to save and retrieve terms from local storage.
+    2. Use this feature for demonstration purposes without requiring a backend.
+
+### Phase 2: Enhanced Study Features
+1. Spaced Repetition Mode
+     1. Design and implement an advanced study mode based on the spaced repetition technique.
+     2. Include an algorithm for scheduling term reviews based on user performance.
+2. Image Support for Cards
+    1. Allow users to upload or link images to terms for enhanced memorization.
+    2. Display images alongside the terms during study sessions.
+
+### Phase 3: AI-Powered Enhancements
+1. AI-Generated Associative Examples
+     1. Use AI to generate example sentences using the terms being studied.
+     2. Provide users with associative contexts to reinforce learning.
+
+### Phase 4: Multi-Language Support
+1. Add a Second Language
+    1. Enable users to add translations or definitions in a second language.
+    2. Allow switching between languages during study sessions.
+
+### Future Plans (Optional Enhancements)
+1. Sync data across devices using cloud storage.
+2. Support audio pronunciation for terms and sentences.
+3. Gamify the learning process with achievements or streaks.
+
+---
+
 ## 🤝 Contributing
 
 Contributions are welcome! If you’d like to contribute:
