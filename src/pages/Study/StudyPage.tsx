@@ -4,12 +4,12 @@ import React, {ReactElement, useState} from 'react';
 import classNames from 'classnames/bind';
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
 import ReactMarkdown from 'react-markdown';
-import styles from './component.module.scss';
+import styles from './StudyPage.module.scss';
 import {termsAPI} from '../../services/api/termsAPI';
 
 const cx = classNames.bind(styles);
 
-export default function Component() {
+export default function StudyPage() {
   const {data: termsList, isLoading} = termsAPI.useFetchTermsQuery();
 
   const [currentItemIndex, setCurrentItemIndex] = useState(0);

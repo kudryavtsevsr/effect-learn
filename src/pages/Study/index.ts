@@ -1,1 +1,1 @@
-export { default as StudyPage } from './component';
+export { default as StudyPage } from './StudyPage';

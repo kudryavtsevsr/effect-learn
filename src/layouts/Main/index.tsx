@@ -1,1 +1,1 @@
-export {default as MainLayout} from './component';
+export {default as MainLayout} from './MainLayout';
