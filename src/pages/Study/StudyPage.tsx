@@ -94,7 +94,7 @@ export default function StudyPage() {
           </Box>
         </Box>
         <Flex justify="space-between" gap={5}>
-          <Button colorScheme="blue" leftIcon={<ArrowBackIcon/>} onClick={goToPrevCard} disabled={isCurrentCardFirst()}>
+          <Button colorScheme="blue" leftIcon={<ArrowBackIcon/>} onClick={goToPrevCard} isDisabled={isCurrentCardFirst()}>
             Prev term
           </Button>
           {
@@ -104,7 +104,7 @@ export default function StudyPage() {
             </Button>)
           }
           <Button colorScheme="blue" rightIcon={<ArrowForwardIcon/>} onClick={goToNextCard}
-                  disabled={isCurrentCardLast()}>
+                  isDisabled={isCurrentCardLast()}>
             Next term
           </Button>
         </Flex>
