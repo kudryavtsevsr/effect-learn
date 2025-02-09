@@ -68,6 +68,7 @@ export default function StudyPage() {
           <Box className={cx('flip-card-inner', {'flip-card-inner--transition': isInnerTransition})}>
             <Box className={cx('flip-card-front')}>
               <Box
+                className={cx('flip-card-content')}
                 pos="relative"
                 bg="gray.100"
                 borderRadius="md"
@@ -75,12 +76,15 @@ export default function StudyPage() {
                 onClick={toggleCard}
               >
                 <Box pos="absolute" opacity="0.5" top="10px" right="10px">{getProgressIndicator()}</Box>
-                <ReactMarkdown components={ChakraUIRenderer()} children={String(termsList?.[currentItemIndex]?.definition)}
-                               skipHtml/>
+                <Box>
+                  <ReactMarkdown components={ChakraUIRenderer()} children={String(termsList?.[currentItemIndex]?.definition)}
+                                 skipHtml/>
+                </Box>
               </Box>
             </Box>
             <Box className={cx('flip-card-back')}>
               <Box
+                className={cx('flip-card-content')}
                 pos="relative"
                 bg="gray.100"
                 borderRadius="md"
@@ -88,7 +92,9 @@ export default function StudyPage() {
                 onClick={toggleCard}
               >
                 <Box pos="absolute" opacity="0.5" top="10px" right="10px">{getProgressIndicator()}</Box>
-                <ReactMarkdown components={ChakraUIRenderer()} children={String(termsList?.[currentItemIndex]?.term)} skipHtml/>
+                <Box>
+                  <ReactMarkdown components={ChakraUIRenderer()} children={String(termsList?.[currentItemIndex]?.term)} skipHtml/>
+                </Box>
               </Box>
             </Box>
           </Box>
