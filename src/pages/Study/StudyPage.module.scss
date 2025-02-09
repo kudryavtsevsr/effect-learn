@@ -2,6 +2,8 @@
   background-color: transparent;
   height: 200px;
   perspective: 1000px;
+  position: relative;
+  overflow: hidden;
 }
 
 .flip-card-inner {
@@ -32,6 +34,67 @@
 
 .flip-card-back {
   transform: rotateY(180deg);
+}
+
+.transition-group {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+// Make exiting elements stay in absolute position
+.slide-left-exit, .slide-left-exit-active,
+.slide-right-exit, .slide-right-exit-active {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+// Slide Left animations
+.slide-left-enter {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.slide-left-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 300ms ease-in-out;
+}
+
+.slide-left-exit {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.slide-left-exit-active {
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: all 300ms ease-in-out;
+}
+
+// Slide Right animations
+.slide-right-enter {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.slide-right-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 300ms ease-in-out;
+}
+
+.slide-right-exit {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.slide-right-exit-active {
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 300ms ease-in-out;
 }
 
 .flip-card-content {
