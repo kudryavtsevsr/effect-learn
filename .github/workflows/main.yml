@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install dependencies
         run: npm install
       - name: Unit tests
@@ -29,9 +29,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Pages
-        uses: actions/configure-pages@v2
+        uses: actions/configure-pages@v4
       - name: Install dependencies
         run: npm install
       - name: Build app
@@ -40,7 +40,7 @@ jobs:
         # github-pages artifact has to contain artifact.tar archive with app files in root
         run: cd build && tar -h -cvf ../artifact.tar --exclude=.git ./ && cd ..
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v3.1.0
+        uses: actions/upload-artifact@v4
         with:
           name: github-pages
           path: ./artifact.tar
@@ -57,4 +57,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
