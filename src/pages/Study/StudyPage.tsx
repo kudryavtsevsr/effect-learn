@@ -91,7 +91,7 @@ export default function StudyPage() {
                     onClick={toggleCard}
                   >
                     <Box pos="absolute" opacity="0.5" top="10px" right="10px">{getProgressIndicator()}</Box>
-                    <Box>
+                    <Box className={cx('flip-card-content-scroll')}>
                       <ReactMarkdown 
                         components={ChakraUIRenderer()} 
                         children={String(termsList?.[currentItemIndex]?.definition)}
@@ -110,7 +110,7 @@ export default function StudyPage() {
                     onClick={toggleCard}
                   >
                     <Box pos="absolute" opacity="0.5" top="10px" right="10px">{getProgressIndicator()}</Box>
-                    <Box>
+                    <Box className={cx('flip-card-content-scroll')}>
                       <ReactMarkdown 
                         components={ChakraUIRenderer()} 
                         children={String(termsList?.[currentItemIndex]?.term)}

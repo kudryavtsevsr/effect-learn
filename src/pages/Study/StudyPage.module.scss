@@ -1,9 +1,29 @@
+$transition-duration: 300ms;
+$card-padding: 24px;
+$border-radius: 8px;
+
 .flip-card {
   background-color: transparent;
   height: 200px;
   perspective: 1000px;
   position: relative;
   overflow: hidden;
+
+  &--flipped {
+    .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front .flip-card-content-scroll {
+      opacity: 0;
+    }
+  }
+
+  &:not(.flip-card--flipped) {
+    .flip-card-back .flip-card-content-scroll {
+      opacity: 1;
+    }
+  }
 }
 
 .flip-card-inner {
@@ -11,29 +31,51 @@
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
+
+  &--transition {
+    transition: transform 0.8s;
+  }
 }
 
-.flip-card-inner--transition {
-  transition: transform 0.8s;
-}
-
-.flip-card.flip-card--flipped .flip-card-inner {
-  transform: rotateY(180deg);
-}
-
-.flip-card-front, .flip-card-back {
+%card-side {
   position: absolute;
   width: 100%;
   height: 100%;
-  -webkit-backface-visibility: hidden; /* Safari */
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
 .flip-card-front {
+  @extend %card-side;
 }
 
 .flip-card-back {
+  @extend %card-side;
   transform: rotateY(180deg);
+}
+
+.flip-card-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: gray.100;
+  border-radius: $border-radius;
+  padding: $card-padding;
+}
+
+.flip-card-content-scroll {
+  transition: opacity 0.3s ease-in-out;
+  opacity: 1;
+  position: absolute;
+  top: 50px;
+  left: $card-padding;
+  right: $card-padding;
+  bottom: $card-padding;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  transform: translateZ(0);
+  will-change: transform;
+  z-index: 1;
 }
 
 .transition-group {
@@ -42,74 +84,65 @@
   height: 100%;
 }
 
-// Make exiting elements stay in absolute position
-.slide-left-exit, .slide-left-exit-active,
-.slide-right-exit, .slide-right-exit-active {
+%slide-exit-common {
   position: absolute;
   width: 100%;
   top: 0;
   left: 0;
 }
 
-// Slide Left animations
-.slide-left-enter {
-  transform: translateX(100%);
-  opacity: 0;
+%slide-transition {
+  transition: all $transition-duration ease-in-out;
 }
 
-.slide-left-enter-active {
-  transform: translateX(0);
-  opacity: 1;
-  transition: all 300ms ease-in-out;
+.slide-left {
+  &-enter {
+    transform: translateX(100%);
+    opacity: 0;
+
+    &-active {
+      transform: translateX(0);
+      opacity: 1;
+      @extend %slide-transition;
+    }
+  }
+
+  &-exit {
+    @extend %slide-exit-common;
+    transform: translateX(0);
+    opacity: 1;
+
+    &-active {
+      @extend %slide-exit-common;
+      transform: translateX(-100%);
+      opacity: 0;
+      @extend %slide-transition;
+    }
+  }
 }
 
-.slide-left-exit {
-  transform: translateX(0);
-  opacity: 1;
-}
+.slide-right {
+  &-enter {
+    transform: translateX(-100%);
+    opacity: 0;
 
-.slide-left-exit-active {
-  transform: translateX(-100%);
-  opacity: 0;
-  transition: all 300ms ease-in-out;
-}
+    &-active {
+      transform: translateX(0);
+      opacity: 1;
+      @extend %slide-transition;
+    }
+  }
 
-// Slide Right animations
-.slide-right-enter {
-  transform: translateX(-100%);
-  opacity: 0;
-}
+  &-exit {
+    @extend %slide-exit-common;
+    transform: translateX(0);
+    opacity: 1;
 
-.slide-right-enter-active {
-  transform: translateX(0);
-  opacity: 1;
-  transition: all 300ms ease-in-out;
-}
-
-.slide-right-exit {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.slide-right-exit-active {
-  transform: translateX(100%);
-  opacity: 0;
-  transition: all 300ms ease-in-out;
-}
-
-.flip-card-content {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-
-  > * {
-    flex: 1;
-    overflow-y: auto;
-    padding: inherit;
-    margin: -24px;
-    margin-top: 0;
-    padding-top: 16px;
+    &-active {
+      @extend %slide-exit-common;
+      transform: translateX(100%);
+      opacity: 0;
+      @extend %slide-transition;
+    }
   }
 }
