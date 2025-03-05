@@ -33,7 +33,8 @@ export default function Form({initialTerm = '', initialDefinition = '', id, exte
       void requestTermCreating({
         id: Date.now().toString(),
         term: trimmedTerm,
-        definition: trimmedDefinition
+        definition: trimmedDefinition,
+        order: Date.now()
       });
       clearForm();
     }
@@ -47,7 +48,8 @@ export default function Form({initialTerm = '', initialDefinition = '', id, exte
         id,
         term: trimmedTerm,
         definition: trimmedDefinition,
-        externalId
+        externalId,
+        order: Date.now()
       });
       onEdited && onEdited();
     }

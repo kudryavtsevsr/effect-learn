@@ -30,7 +30,13 @@ export default memo(function TermsItem({term, definition, id, externalId, remove
   }
 
   function removeCurrentTerm(): void {
-    void removeTerm({term, definition, id, externalId});
+    void removeTerm({
+      term,
+      definition,
+      id,
+      externalId,
+      order: Date.now()
+    });
   }
 
   return (
