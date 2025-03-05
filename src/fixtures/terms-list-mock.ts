@@ -1,7 +1,8 @@
 export interface MockTermRawResponse {
   term: string,
   definition: string,
-  id: string
+  id: string,
+  order: number
 }
 
 export const termsList: MockTermRawResponse[] = [
@@ -13,7 +14,8 @@ export const termsList: MockTermRawResponse[] = [
 - rented / temporary _____________.
 - Hotel _____________ is included in the price of your holiday.
 - We may have to provide alternative _____________
-for you.`
+for you.`,
+    order: 1741179522285
   },
   {
     id: '2',
@@ -27,7 +29,8 @@ for you.`
 
 **more than something**
 
-- She's got nothing ______ her state pension.`
+- She's got nothing ______ her state pension.`,
+    order: 1741179522286
   },
   {
     id: '3',
@@ -36,7 +39,8 @@ for you.`
 
 The FBI has been called in to ________.
 
-'What was that noise?' 'I'll go and ________.'`
+'What was that noise?' 'I'll go and ________.'`,
+    order: 1741179522287
   },
   {
     id: '4',
@@ -47,6 +51,7 @@ a ______ bed/doorway/shelf.
 
 ______ shoulders/hips
 
-There was only a ______ gap between the bed and the wall.`
+There was only a ______ gap between the bed and the wall.`,
+    order: 1741179522288
   }
 ];

@@ -14,13 +14,12 @@
     "@testing-library/user-event": "~13.5.0",
     "@types/jest": "~27.5.2",
     "@types/node": "~16.18.123",
-    "@types/react": "~18.3.18",
-    "@types/react-dom": "~18.3.5",
     "@types/react-redux": "~7.1.34",
-    "@types/react-transition-group": "~4.4.12",
     "axios": "~0.29.0",
     "chakra-ui-markdown-renderer": "~4.1.0",
     "classnames": "~2.5.1",
+    "dexie": "^4.0.11",
+    "dexie-react-hooks": "^1.1.7",
     "framer-motion": "~6.5.1",
     "react": "~18.3.1",
     "react-dom": "~18.3.1",
@@ -58,5 +57,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.0",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@types/react-transition-group": "^4.4.12"
   }
 }

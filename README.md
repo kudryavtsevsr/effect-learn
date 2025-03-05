@@ -44,9 +44,9 @@ To set up the project locally, follow these steps:
 2. ✅ Study Terms in Basic Mode
     1. ✅ Create a simple study mode where terms are shown in a circular sequence.
     2. ✅ Include basic navigation (next/previous buttons) for moving between terms.
-3. Local Storage Integration
-    1. Implement functionality to save and retrieve terms from local storage.
-    2. Use this feature for demonstration purposes without requiring a backend.
+3. ✅ Local Storage (IndexedDB) Integration
+    1. ✅ Implement functionality to save and retrieve terms from local storage.
+    2. ✅ Use this feature for demonstration purposes without requiring a backend.
 
 ### Phase 2: Enhanced Study Features
 1. Spaced Repetition Mode
